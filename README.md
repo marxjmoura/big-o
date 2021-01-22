@@ -1,2 +1,3 @@
-# big-o
+# Big O
+
 Time complexity analysis (Big-O notation).
