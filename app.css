@@ -1,0 +1,61 @@
+textarea {
+  resize: vertical;
+}
+
+pre code.hljs {
+  padding: 15px;
+}
+
+.display-1 {
+  font-size: 2em;
+  margin: 15px 0;
+}
+
+.display-2 {
+  font-size: 1.5em;
+  margin: 15px 0;
+}
+
+.wall-responsive {
+  overflow: auto;
+}
+
+.wall-responsive .wall {
+  min-width: 400px;
+}
+
+.wall {
+  position: relative;
+  background-color: #dfe4ea;
+  border: 2px solid #d1d8e0;
+  padding: 4px;
+  filter: grayscale(0%);
+  transition: filter .5s ease;
+}
+
+.wall.disabled {
+  filter: grayscale(100%);
+}
+
+.wall-cut {
+  position: absolute;
+  background-color: #dc3545;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+}
+
+.wall-row {
+  display: flex;
+}
+
+.wall-cell {
+  padding: 3px;
+}
+
+.wall-brick {
+  background-color: #ea8685;
+  border: 2px solid #cf6a87;
+  border-radius: 5px;
+  text-align: center;
+}

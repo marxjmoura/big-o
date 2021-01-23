@@ -1,47 +1,104 @@
 (function () {
 
-  var wall = [
-    [1, 2, 2, 1],
-    [3, 1, 2],
-    [1, 3, 2],
-    [2, 4],
-    [3, 1, 2],
-    [1, 3, 1, 1]
-  ];
+  var $editor = $('#editor');
+  var $wall = $('#wall');
+  var $result = $('#result');
+  var $code = $('pre code');
 
-  var minimumCutCount = 0;
-  var position = {};
+  function parse(matrix) {
+    try {
+      var wall = eval(matrix);
+      var sum = [];
 
-  for (var currentRow = 0; currentRow < wall.length; currentRow++) {
-    var currentSize = 0;
+      if (!$.isArray(wall)) return null;
 
-    for (var currentBrick = 0; currentBrick < wall[currentRow].length - 1; currentBrick++) {
-      var currentBrickCuts = 0;
+      for (var row = 0; row < wall.length; row++) {
+        if (!$.isArray(wall[row])) return null;
 
-      currentSize += wall[currentRow][currentBrick];
+        sum[row] = 0;
 
-      for (var nextRow = 0; nextRow < wall.length; nextRow++) {
-        if (nextRow === currentRow) continue;
+        for (var brick = 0; brick < wall[row].length; brick++) {
+          if (!$.isNumeric(wall[row][brick])) return null;
 
-        var nextSize = 0;
-
-        for (var nextBrick = 0; nextSize < currentSize; nextBrick++) {
-          nextSize += wall[nextRow][nextBrick];
+          wall[row][brick] = Number(wall[row][brick]);
+          sum[row] += wall[row][brick];
         }
 
-        if (nextSize > currentSize) {
-          currentBrickCuts++;
-        }
+        if (row > 0 && sum[row] !== sum[row - 1]) return null;
       }
-    }
 
-    if (currentBrickCuts < minimumCutCount || minimumCutCount === 0) {
-      position.row = currentRow;
-      position.brick = currentBrick;
-      minimumCutCount = currentBrickCuts;
+      return wall;
+    } catch {
+      return null;
     }
   }
 
-  console.log('Best cut = ' + minimumCutCount + ' (row ' + (position.row + 1) + ' after brick ' + position.brick + ')');
+  function print(cut) {
+    var count = 'Lowest count = ' + cut.count;
+    var position = '(row ' + (cut.row + 1) + ' after brick ' + cut.brick + '):'
+
+    $result.text(count + ' ' + position);
+  }
+
+  function draw(wall, cut) {
+    var $container = $('<div/>');
+
+    var maxWidth = 0;
+    var cutLeft = 0;
+
+    for (var brick = 0; brick < wall[0].length; brick++) {
+      maxWidth += wall[0][brick];
+    }
+
+    for (var brick = 0; brick < cut.brick; brick++) {
+      cutLeft += wall[cut.row][brick];
+    }
+
+    for (var row = 0; row < wall.length; row++) {
+      var $row = $('<div class="wall-row"></div>');
+
+      for (var brick = 0; brick < wall[row].length; brick++) {
+        var width = wall[row][brick];
+
+        var $cell = $('<div class="wall-cell"></div>')
+          .css('width', (width * 100 / maxWidth) + '%')
+
+        var $brick = $('<div class="wall-brick"></div>')
+          .html(width);
+
+        $cell.append($brick);
+        $row.append($cell);
+      }
+
+      $container.append($row);
+    }
+
+    var $cut = $('<div class="wall-cut"></div>')
+      .css('left', (cutLeft * 100 / maxWidth) + '%');
+
+    $container.append($cut);
+
+    $wall.html($container.children());
+  }
+
+  $code.each(function (i, code) {
+    hljs.highlightBlock(code);
+  });
+
+  $editor.on('input', function () {
+    var wall = parse($editor.val());
+
+    if (wall !== null) {
+      var cut = window.challenge.v1.cut(wall);
+
+      print(cut);
+      draw(wall, cut);
+    }
+
+    $editor.toggleClass('is-invalid', wall === null);
+    $wall.toggleClass('disabled', wall === null);
+  })
+
+  $editor.trigger('input');
 
 })();
