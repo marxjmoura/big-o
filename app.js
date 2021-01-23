@@ -1,4 +1,4 @@
-(function () {
+(function (algorithm) {
 
   var $editor = $('#editor');
   var $wall = $('#wall');
@@ -34,24 +34,20 @@
   }
 
   function print(cut) {
-    var count = 'Lowest count = ' + cut.count;
-    var position = '(row ' + (cut.row + 1) + ' after brick ' + cut.brick + '):'
+    var count = 'Bricks = ' + cut.count;
+    var units = cut.position + (cut.position > 1 ? ' units' : ' unit');
+    var position = 'Position = ' + units + ' (from left to right):'
 
-    $result.text(count + ' ' + position);
+    $result.text(count + '; ' + position);
   }
 
   function draw(wall, cut) {
     var $container = $('<div/>');
 
     var maxWidth = 0;
-    var cutLeft = 0;
 
     for (var brick = 0; brick < wall[0].length; brick++) {
       maxWidth += wall[0][brick];
-    }
-
-    for (var brick = 0; brick < cut.brick; brick++) {
-      cutLeft += wall[cut.row][brick];
     }
 
     for (var row = 0; row < wall.length; row++) {
@@ -74,7 +70,7 @@
     }
 
     var $cut = $('<div class="wall-cut"></div>')
-      .css('left', (cutLeft * 100 / maxWidth) + '%');
+      .css('left', (cut.position * 100 / maxWidth) + '%');
 
     $container.append($cut);
 
@@ -89,7 +85,7 @@
     var wall = parse($editor.val());
 
     if (wall !== null) {
-      var cut = window.challenge.v1.cut(wall);
+      var cut = algorithm.cut(wall);
 
       print(cut);
       draw(wall, cut);
@@ -101,4 +97,4 @@
 
   $editor.trigger('input');
 
-})();
+})(window.challenge.v2);

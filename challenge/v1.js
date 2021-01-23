@@ -1,9 +1,8 @@
 (function (challenge) {
 
   function cut(wall) {
-    var row = null;
-    var brick = null;
     var count = 0;
+    var position = 0;
 
     for (var currentRow = 0; currentRow < wall.length; currentRow++) {
       var currentSize = 0;
@@ -26,19 +25,17 @@
             currentCount++;
           }
         }
-      }
 
-      if (currentCount < count || count === 0) {
-        row = currentRow;
-        brick = currentBrick;
-        count = currentCount;
+        if (currentCount < count || count === 0) {
+          count = currentCount;
+          position = currentSize;
+        }
       }
     }
 
     return {
       count: count,
-      row: row,
-      brick: brick
+      position: position
     }
   }
 

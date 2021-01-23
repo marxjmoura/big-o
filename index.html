@@ -35,7 +35,7 @@
 ]
 </textarea>
             <span class="text-muted">
-              All rows must have the same result after the sum each element.
+              The sum of units in each row should have the same result.
             </span>
           </div>
         </div>
@@ -53,7 +53,7 @@
         Timeline
       </h1>
       <p>
-        A little of history. Which logic I used to solve this challenge.
+        A little of history. The logic I used to solve this challenge.
       </p>
 
       <ul class="nav nav-tabs">
@@ -98,7 +98,7 @@
               </li>
               <li>
                 Keep going until close the cycle, that is, when you compare all the rows with each other.
-                In the end you will find out the best result.
+                In the end you will have the best result.
               </li>
             </ol>
           </p>
@@ -108,9 +108,8 @@
           <pre><code class="hljs javascript">(function (challenge) {
 
   function cut(wall) {
-    var row &#x3D; null;
-    var brick &#x3D; null;
     var count &#x3D; 0;
+    var position &#x3D; 0;
 
     for (var currentRow &#x3D; 0; currentRow &lt; wall.length; currentRow++) {
       var currentSize &#x3D; 0;
@@ -133,19 +132,17 @@
             currentCount++;
           }
         }
-      }
 
-      if (currentCount &lt; count || count &#x3D;&#x3D;&#x3D; 0) {
-        row &#x3D; currentRow;
-        brick &#x3D; currentBrick;
-        count &#x3D; currentCount;
+        if (currentCount &lt; count || count &#x3D;&#x3D;&#x3D; 0) {
+          count &#x3D; currentCount;
+          position &#x3D; currentSize;
+        }
       }
     }
 
     return {
       count: count,
-      row: row,
-      brick: brick
+      position: position
     }
   }
 
@@ -158,12 +155,50 @@
         </div>
         <div id="v2" class="tab-pane py-3">
           <p>
-            It can be better. Working on it...
+            It can be better and simple. Look to the wall again...
+            <ol>
+              <li>Instead of seeing the bricks, look for the spaces between the bricks. The more the better.</li>
+              <li>
+                Visit each row and as you do this:
+                <ul>
+                  <li>Save the position of each space (sum the brick sizes).</li>
+                  <li>Count the number of spaces in that position.</li>
+                  <li>Whenever there are more spaces, save the current position.</li>
+                </ul>
+              </li>
+              <li>When you complete the cycle, you will have the best result.</li>
+            </ol>
+          </p>
+          <p>
+            Conclusion: Much better than version 1. Cleaner and faster.
           </p>
           <pre><code class="hljs javascript">(function (challenge) {
 
   function cut(wall) {
-    // TODO
+    var spaceCount &#x3D; [];
+    var spacePosition &#x3D; [];
+    var cutPosition &#x3D; null;
+
+    for (var currentRow &#x3D; 0; currentRow &lt; wall.length; currentRow++) {
+      spacePosition[currentRow] &#x3D; [];
+
+      for (var currentBrick &#x3D; 0; currentBrick &lt; wall[currentRow].length - 1; currentBrick++) {
+        spacePosition[currentRow][currentBrick] &#x3D; wall[currentRow][currentBrick];
+        spacePosition[currentRow][currentBrick] +&#x3D; spacePosition[currentRow][currentBrick - 1] || 0;
+
+        var position &#x3D; spacePosition[currentRow][currentBrick];
+        spaceCount[position] &#x3D; (spaceCount[position] || 0) + 1;
+
+        if (cutPosition &#x3D;&#x3D;&#x3D; null || spaceCount[position] &gt; spaceCount[cutPosition]) {
+          cutPosition &#x3D; position;
+        }
+      }
+    }
+
+    return {
+      count: wall.length - spaceCount[cutPosition],
+      position: cutPosition
+    }
   }
 
   challenge.v2 &#x3D; {

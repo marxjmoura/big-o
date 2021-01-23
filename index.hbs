@@ -27,7 +27,7 @@
             <label>Try it out (bidimensional matrix):</label>
             <textarea id="editor" class="form-control text-monospace" rows="10">{{ include 'challenge/seed.json' }}</textarea>
             <span class="text-muted">
-              All rows must have the same result after the sum each element.
+              The sum of units in each row should have the same result.
             </span>
           </div>
         </div>
@@ -45,7 +45,7 @@
         Timeline
       </h1>
       <p>
-        A little of history. Which logic I used to solve this challenge.
+        A little of history. The logic I used to solve this challenge.
       </p>
 
       <ul class="nav nav-tabs">
@@ -90,7 +90,7 @@
               </li>
               <li>
                 Keep going until close the cycle, that is, when you compare all the rows with each other.
-                In the end you will find out the best result.
+                In the end you will have the best result.
               </li>
             </ol>
           </p>
@@ -101,7 +101,22 @@
         </div>
         <div id="v2" class="tab-pane py-3">
           <p>
-            It can be better. Working on it...
+            It can be better and simple. Look to the wall again...
+            <ol>
+              <li>Instead of seeing the bricks, look for the spaces between the bricks. The more the better.</li>
+              <li>
+                Visit each row and as you do this:
+                <ul>
+                  <li>Save the position of each space (sum the brick sizes).</li>
+                  <li>Count the number of spaces in that position.</li>
+                  <li>Whenever there are more spaces, save the current position.</li>
+                </ul>
+              </li>
+              <li>When you complete the cycle, you will have the best result.</li>
+            </ol>
+          </p>
+          <p>
+            Conclusion: Much better than version 1. Cleaner and faster.
           </p>
           <pre><code class="hljs javascript">{{ include 'challenge/v2.js' }}</code></pre>
         </div>

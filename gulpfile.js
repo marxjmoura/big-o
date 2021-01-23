@@ -3,17 +3,15 @@ const connect = require('gulp-connect')
 const rename = require("gulp-rename")
 const handlebars = require('./handlebars')
 
-gulp.task('build-html', () => {
+gulp.task('build', () => {
   return gulp.src('index.hbs')
     .pipe(handlebars())
     .pipe(rename({ extname: '.html' }))
     .pipe(gulp.dest('.'))
 })
 
-gulp.task('build', gulp.parallel('build-html'))
-
 gulp.task('watch', done => {
-  gulp.watch('./**/*.hbs', gulp.series('build-html'))
+  gulp.watch('./**/*.{css,js,hbs}', gulp.series('build'))
   done()
 })
 
