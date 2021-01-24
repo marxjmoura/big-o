@@ -4,31 +4,31 @@
     var count = 0;
     var position = 0;
 
-    for (var currentRow = 0; currentRow < wall.length; currentRow++) {
-      var currentSize = 0;
+    for (var row = 0; row < wall.length; row++) {
+      var size = 0;
 
-      for (var currentBrick = 0; currentBrick < wall[currentRow].length - 1; currentBrick++) {
+      for (var brick = 0; brick < wall[row].length - 1; brick++) {
         var currentCount = 0;
 
-        currentSize += wall[currentRow][currentBrick];
+        size += wall[row][brick];
 
         for (var nextRow = 0; nextRow < wall.length; nextRow++) {
-          if (nextRow === currentRow) continue;
+          if (nextRow === row) continue;
 
           var nextSize = 0;
 
-          for (var nextBrick = 0; nextSize < currentSize; nextBrick++) {
+          for (var nextBrick = 0; nextSize < size; nextBrick++) {
             nextSize += wall[nextRow][nextBrick];
           }
 
-          if (nextSize > currentSize) {
+          if (nextSize > size) {
             currentCount++;
           }
         }
 
         if (currentCount < count || count === 0) {
           count = currentCount;
-          position = currentSize;
+          position = size;
         }
       }
     }

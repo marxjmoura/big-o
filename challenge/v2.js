@@ -2,17 +2,14 @@
 
   function cut(wall) {
     var spaceCount = [];
-    var spacePosition = [];
     var cutPosition = null;
 
-    for (var currentRow = 0; currentRow < wall.length; currentRow++) {
-      spacePosition[currentRow] = [];
+    for (var row = 0; row < wall.length; row++) {
+      var position = 0;
 
-      for (var currentBrick = 0; currentBrick < wall[currentRow].length - 1; currentBrick++) {
-        spacePosition[currentRow][currentBrick] = wall[currentRow][currentBrick];
-        spacePosition[currentRow][currentBrick] += spacePosition[currentRow][currentBrick - 1] || 0;
+      for (var brick = 0; brick < wall[row].length - 1; brick++) {
+        position += wall[row][brick];
 
-        var position = spacePosition[currentRow][currentBrick];
         spaceCount[position] = (spaceCount[position] || 0) + 1;
 
         if (cutPosition === null || spaceCount[position] > spaceCount[cutPosition]) {

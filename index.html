@@ -115,31 +115,31 @@
     var count &#x3D; 0;
     var position &#x3D; 0;
 
-    for (var currentRow &#x3D; 0; currentRow &lt; wall.length; currentRow++) {
-      var currentSize &#x3D; 0;
+    for (var row &#x3D; 0; row &lt; wall.length; row++) {
+      var size &#x3D; 0;
 
-      for (var currentBrick &#x3D; 0; currentBrick &lt; wall[currentRow].length - 1; currentBrick++) {
+      for (var brick &#x3D; 0; brick &lt; wall[row].length - 1; brick++) {
         var currentCount &#x3D; 0;
 
-        currentSize +&#x3D; wall[currentRow][currentBrick];
+        size +&#x3D; wall[row][brick];
 
         for (var nextRow &#x3D; 0; nextRow &lt; wall.length; nextRow++) {
-          if (nextRow &#x3D;&#x3D;&#x3D; currentRow) continue;
+          if (nextRow &#x3D;&#x3D;&#x3D; row) continue;
 
           var nextSize &#x3D; 0;
 
-          for (var nextBrick &#x3D; 0; nextSize &lt; currentSize; nextBrick++) {
+          for (var nextBrick &#x3D; 0; nextSize &lt; size; nextBrick++) {
             nextSize +&#x3D; wall[nextRow][nextBrick];
           }
 
-          if (nextSize &gt; currentSize) {
+          if (nextSize &gt; size) {
             currentCount++;
           }
         }
 
         if (currentCount &lt; count || count &#x3D;&#x3D;&#x3D; 0) {
           count &#x3D; currentCount;
-          position &#x3D; currentSize;
+          position &#x3D; size;
         }
       }
     }
@@ -180,17 +180,14 @@
 
   function cut(wall) {
     var spaceCount &#x3D; [];
-    var spacePosition &#x3D; [];
     var cutPosition &#x3D; null;
 
-    for (var currentRow &#x3D; 0; currentRow &lt; wall.length; currentRow++) {
-      spacePosition[currentRow] &#x3D; [];
+    for (var row &#x3D; 0; row &lt; wall.length; row++) {
+      var position &#x3D; 0;
 
-      for (var currentBrick &#x3D; 0; currentBrick &lt; wall[currentRow].length - 1; currentBrick++) {
-        spacePosition[currentRow][currentBrick] &#x3D; wall[currentRow][currentBrick];
-        spacePosition[currentRow][currentBrick] +&#x3D; spacePosition[currentRow][currentBrick - 1] || 0;
+      for (var brick &#x3D; 0; brick &lt; wall[row].length - 1; brick++) {
+        position +&#x3D; wall[row][brick];
 
-        var position &#x3D; spacePosition[currentRow][currentBrick];
         spaceCount[position] &#x3D; (spaceCount[position] || 0) + 1;
 
         if (cutPosition &#x3D;&#x3D;&#x3D; null || spaceCount[position] &gt; spaceCount[cutPosition]) {
