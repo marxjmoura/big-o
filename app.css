@@ -6,6 +6,10 @@ pre code.hljs {
   padding: 15px;
 }
 
+.favicon {
+  height: 50px;
+}
+
 .display-1 {
   font-size: 2em;
   margin: 15px 0;
@@ -39,7 +43,7 @@ pre code.hljs {
 
 .wall-cut {
   position: absolute;
-  background-color: #dc3545;
+  background-color: #3742fa;
   top: 0;
   bottom: 0;
   width: 3px;
@@ -54,8 +58,9 @@ pre code.hljs {
 }
 
 .wall-brick {
-  background-color: #ea8685;
-  border: 2px solid #cf6a87;
+  background-color: #ff6b81;
+  border: 2px solid #ff4757;
   border-radius: 5px;
+  color: #fff;
   text-align: center;
 }

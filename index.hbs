@@ -3,19 +3,23 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="Marx J. Moura" />
     <meta name="theme-color" content="#202730">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="author" content="Marx Fernandes - Tópico Web" />
+    <meta property="og:title" content="Cut the Wall - Coding Challenge"/>
+    <meta property="og:image" content="https://marxjmoura.github.io/big-o/favicon.png"/>
+    <meta property="og:description" content="Logic and programming proficiency test."/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/tomorrow-night.min.css">
     <link rel="stylesheet" href="app.css">
     <link rel="icon" href="favicon.ico">
-    <title>Wall</title>
+    <title>Cut the Wall - Coding Challenge</title>
   </head>
   <body>
     <div class="container-fluid">
-      <h1 class="display-1">
-        Coding Challenge
+      <h1 class="display-1 d-flex align-items-center">
+        <img src="favicon.svg" class="favicon">
+        <span class="ml-2">Cut the Wall - Coding Challenge</span>
       </h1>
       <p>
         Draw a line in the middle of the wall that cuts the fewest number of bricks.
@@ -105,7 +109,7 @@
             <ol>
               <li>Instead of seeing the bricks, look for the spaces between the bricks. The more the better.</li>
               <li>
-                Visit each row and as you do this:
+                Follow the steps below when visiting each row:
                 <ul>
                   <li>Save the position of each space (sum the brick sizes).</li>
                   <li>Count the number of spaces in that position.</li>
@@ -122,6 +126,7 @@
         </div>
       </div>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
