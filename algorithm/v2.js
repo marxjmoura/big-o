@@ -1,4 +1,4 @@
-(function (challenge) {
+(function (algorithm) {
 
   function cut(wall) {
     var spaceCount = [];
@@ -24,8 +24,8 @@
     }
   }
 
-  challenge.v2 = {
+  algorithm.v2 = {
     cut: cut
   };
 
-})((window.challenge = window.challenge || {}));
+})((window.algorithm = window.algorithm || {}));

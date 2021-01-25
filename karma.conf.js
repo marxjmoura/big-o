@@ -4,11 +4,11 @@ module.exports = function (config) {
     browsers: ['ChromeHeadless'],
     frameworks: ['jasmine'],
     files: [
-      'challenge/*.js'
+      'algorithm/*.js'
     ],
     reporters: ['progress', 'coverage'],
     coverageReporter: {
-      dir: 'challenge/coverage',
+      dir: 'algorithm/coverage',
       reporters: [
         { type: 'cobertura', subdir: '.', file: 'cobertura.xml' },
         { type: 'html', subdir: './html' }

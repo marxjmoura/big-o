@@ -1,4 +1,4 @@
-describe("challenge.v2.cut()", () => {
+describe("algorithm.v2.cut()", () => {
   const versions = ['v1', 'v2']
 
   const wall = [
@@ -12,11 +12,11 @@ describe("challenge.v2.cut()", () => {
 
   versions.forEach(version => {
     it("returns the fewest number of bricks", () => {
-      expect(challenge[version].cut(wall).count).toBe(2)
+      expect(algorithm[version].cut(wall).count).toBe(2)
     })
 
     it("returns the best position", () => {
-      expect(challenge[version].cut(wall).position).toBe(4)
+      expect(algorithm[version].cut(wall).position).toBe(4)
     })
   })
 
