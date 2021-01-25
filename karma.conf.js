@@ -6,6 +6,9 @@ module.exports = function (config) {
     files: [
       'algorithm/*.js'
     ],
+    preprocessors: {
+      'algorithm/v*.js': ['coverage']
+    },
     reporters: ['progress', 'coverage'],
     coverageReporter: {
       dir: 'algorithm/coverage',
