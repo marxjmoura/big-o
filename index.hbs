@@ -46,91 +46,40 @@
       </div>
 
       <h1 class="display-1">
-        Timeline
+        Solution
       </h1>
+
       <p>
-        A little of history. The logic I used to solve this challenge.
+        The logic I used to solve this challenge:
+
+        <ol>
+          <li>Look for the spaces between the bricks. The more the better.</li>
+          <li>
+            Follow the steps below when visiting each row:
+            <ul>
+              <li>Save the position of each space (sum the brick sizes).</li>
+              <li>Count the number of spaces in that position.</li>
+              <li>Whenever there are more spaces, save the current position.</li>
+            </ul>
+          </li>
+          <li>When you complete the cycle, you will have the best result.</li>
+        </ol>
       </p>
 
-      <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a href="#v1" class="nav-link active" data-toggle="tab">Version 1</a>
-        </li>
-        <li class="nav-item">
-          <a href="#v2" class="nav-link" data-toggle="tab">Version 2</a>
-        </li>
-      </ul>
+      <p>
+        This logic can be implemented with 2 nested loops that result in an O (n2) complexity algorithm.
+      </p>
 
-      <div id="code-versions" class="tab-content">
-        <div id="v1" class="tab-pane active py-3">
-          <p>
-            Look to the wall...
-            <ol>
-              <li>Pick a row and take the first brick (A1).</li>
-              <li>Then, go to the next row and take the first brick (B1).</li>
-              <li>
-                Now compare the size. Is it smaller than the brick size (A1)?
-                <ul>
-                  <li>
-                    Yes: Take the next brick (B2) and sum to the size of the previous one (B1.size + B2.size).
-                    Ask again (item 4).
-                  </li>
-                  <li>
-                    No: Time to check for collision. Is the result size equal or greater?
-                    <ul>
-                      <li>
-                        Equal: It means that you have NOT hit any other bricks on the row (B).
-                      </li>
-                      <li>
-                        Higher: It means that you hit some brick on the row (B). Count.
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-                <li>
-                  Repeat this proccess until you visit all the bricks in row (A),
-                  except the last one (you cannot cut the corners). Then, go to the next row.
-                </li>
-              </li>
-              <li>
-                Keep going until close the cycle, that is, when you compare all the rows with each other.
-                In the end you will have the best result.
-              </li>
-            </ol>
-          </p>
-          <p>
-            Conclusion: You code will look like a mess and the complexity is sad.
-          </p>
-          <pre><code class="hljs javascript">{{ include 'challenge/v1.js' }}</code></pre>
-        </div>
-        <div id="v2" class="tab-pane py-3">
-          <p>
-            It can be better and simple. Look to the wall again...
-            <ol>
-              <li>Instead of seeing the bricks, look for the spaces between the bricks. The more the better.</li>
-              <li>
-                Follow the steps below when visiting each row:
-                <ul>
-                  <li>Save the position of each space (sum the brick sizes).</li>
-                  <li>Count the number of spaces in that position.</li>
-                  <li>Whenever there are more spaces, save the current position.</li>
-                </ul>
-              </li>
-              <li>When you complete the cycle, you will have the best result.</li>
-            </ol>
-          </p>
-          <p>
-            Conclusion: Much better than version 1. Cleaner and faster.
-          </p>
-          <pre><code class="hljs javascript">{{ include 'challenge/v2.js' }}</code></pre>
-        </div>
-      </div>
+      <pre><code class="hljs javascript">{{ include 'challenge/v2.js' }}</code></pre>
+
+      <p>
+        The source code of this app is hosted on <a href="https://github.com/marxjmoura/big-o">GitHub</a>.
+      </p>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-    <script src="challenge/v1.js"></script>
     <script src="challenge/v2.js"></script>
     <script src="app.js"></script>
   </body>
