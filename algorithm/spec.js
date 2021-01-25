@@ -1,5 +1,5 @@
 describe("cut()", () => {
-  const versions = ['v1', 'v2']
+  const versions = ['v1', 'v2', 'v3']
 
   const wall = [
     [1, 2, 2, 1],

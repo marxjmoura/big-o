@@ -84,7 +84,7 @@
       </p>
 
       <p>
-        This logic can be implemented with 2 nested loops that result in an O(n2) complexity algorithm.
+        This logic can be implemented with a single loop that result in an O(n) complexity algorithm.
       </p>
 
       <pre><code class="hljs javascript">(function (algorithm) {
@@ -93,17 +93,18 @@
     var spaceCount &#x3D; [];
     var cutPosition &#x3D; null;
 
-    for (var row &#x3D; 0; row &lt; wall.length; row++) {
-      var position &#x3D; 0;
+    for (var row &#x3D; 0, brick &#x3D; 0, position &#x3D; 0; row &lt; wall.length;) {
+      position +&#x3D; wall[row][brick];
+      spaceCount[position] &#x3D; (spaceCount[position] || 0) + 1;
 
-      for (var brick &#x3D; 0; brick &lt; wall[row].length - 1; brick++) {
-        position +&#x3D; wall[row][brick];
+      if (cutPosition &#x3D;&#x3D;&#x3D; null || spaceCount[position] &gt; spaceCount[cutPosition]) {
+        cutPosition &#x3D; position;
+      }
 
-        spaceCount[position] &#x3D; (spaceCount[position] || 0) + 1;
-
-        if (cutPosition &#x3D;&#x3D;&#x3D; null || spaceCount[position] &gt; spaceCount[cutPosition]) {
-          cutPosition &#x3D; position;
-        }
+      if (++brick &#x3D;&#x3D;&#x3D; wall[row].length - 1) {
+        row++;
+        brick &#x3D; 0;
+        position &#x3D; 0;
       }
     }
 
@@ -113,7 +114,7 @@
     }
   }
 
-  algorithm.v2 &#x3D; {
+  algorithm.v3 &#x3D; {
     cut: cut
   };
 
@@ -129,7 +130,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-    <script src="algorithm/v2.js"></script>
+    <script src="algorithm/v3.js"></script>
     <script src="app.js"></script>
   </body>
 </html>

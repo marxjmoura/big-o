@@ -97,4 +97,4 @@
 
   $editor.trigger('input');
 
-})(window.algorithm.v2);
+})(window.algorithm.v3);
