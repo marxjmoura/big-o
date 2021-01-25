@@ -2,6 +2,7 @@
 # Directories #
 ###############
 .vscode/
+coverage/
 node_modules/
 ############
 # Packages #

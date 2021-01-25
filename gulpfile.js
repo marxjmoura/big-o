@@ -10,6 +10,13 @@ gulp.task('build', () => {
     .pipe(gulp.dest('.'))
 })
 
+gulp.task('test', function(done) {
+  karma.start({
+    configFile: `${__dirname}/karma.conf.js`,
+    singleRun: true
+  }, done);
+});
+
 gulp.task('watch', done => {
   gulp.watch('./**/*.{css,js,hbs}', gulp.series('build'))
   done()
