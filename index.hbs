@@ -76,10 +76,41 @@
       </p>
 
       <p>
-        This logic can be implemented with a single loop that result in an O(n) complexity algorithm.
+        This logic can be implemented in different ways (from the least to the most complex algorithm):
       </p>
 
-      <pre><code class="hljs javascript">{{ include 'algorithm/v3.js' }}</code></pre>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a href="#v3" class="nav-link active" data-toggle="tab">O(n)</a>
+        </li>
+        <li class="nav-item">
+          <a href="#v2" class="nav-link" data-toggle="tab">O(n2)</a>
+        </li>
+        <li class="nav-item">
+          <a href="#v1" class="nav-link" data-toggle="tab">O(n4)</a>
+        </li>
+      </ul>
+
+      <div id="code-versions" class="tab-content">
+        <div id="v3" class="tab-pane active py-3">
+          <p>
+            Using a single loop that result in an O(n) complexity algorithm:
+          </p>
+          <pre><code class="hljs javascript">{{ include 'algorithm/v3.js' }}</code></pre>
+        </div>
+        <div id="v2" class="tab-pane py-3">
+          <p>
+            Using two nested loop that result in an O(n2) complexity algorithm:
+          </p>
+          <pre><code class="hljs javascript">{{ include 'algorithm/v2.js' }}</code></pre>
+        </div>
+        <div id="v1" class="tab-pane py-3">
+          <p>
+            Using four nested loop that result in a sad O(n4) complexity algorithm:
+          </p>
+          <pre><code class="hljs javascript">{{ include 'algorithm/v1.js' }}</code></pre>
+        </div>
+      </div>
 
       <p>
         Developed by <a href="https://github.com/marxjmoura">Marx J. Moura</a>.

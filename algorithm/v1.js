@@ -1,8 +1,8 @@
 (function (algorithm) {
 
   function cut(wall) {
-    var count = 0;
-    var position = 0;
+    var cutCount = 0;
+    var cutPosition = null;
 
     for (var row = 0; row < wall.length; row++) {
       var size = 0;
@@ -26,16 +26,16 @@
           }
         }
 
-        if (currentCount < count || count === 0) {
-          count = currentCount;
-          position = size;
+        if (currentCount < cutCount || cutCount === 0) {
+          cutCount = currentCount;
+          cutPosition = size;
         }
       }
     }
 
     return {
-      count: count,
-      position: position
+      count: cutCount,
+      position: cutPosition
     }
   }
 
