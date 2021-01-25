@@ -1,4 +1,4 @@
-describe("algorithm.v2.cut()", () => {
+describe("cut()", () => {
   const versions = ['v1', 'v2']
 
   const wall = [

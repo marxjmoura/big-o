@@ -1,4 +1,4 @@
-(function (challenge) {
+(function (algorithm) {
 
   function cut(wall) {
     var count = 0;
@@ -39,8 +39,8 @@
     }
   }
 
-  challenge.v1 = {
+  algorithm.v1 = {
     cut: cut
   };
 
-})((window.challenge = window.challenge || {}));
+})((window.algorithm = window.algorithm || {}));
