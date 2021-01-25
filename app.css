@@ -6,6 +6,10 @@ pre code.hljs {
   padding: 15px;
 }
 
+.badge {
+  text-decoration: none;
+}
+
 .favicon {
   height: 50px;
 }
