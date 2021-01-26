@@ -10,17 +10,17 @@
       var wall = eval(matrix);
       var sum = [];
 
-      if (!$.isArray(wall)) return null;
+      if (!$.isArray(wall)) return []
 
       for (var row = 0, brick = 0; row < wall.length;) {
-        if (!$.isArray(wall[row])) return null;
-        if (!$.isNumeric(wall[row][brick])) return null;
+        if (!$.isArray(wall[row])) return []
+        if (!$.isNumeric(wall[row][brick])) return []
 
         wall[row][brick] = Number(wall[row][brick]);
         sum[row] = (sum[row] || 0) + wall[row][brick];
 
         if (++brick === wall[row].length) {
-          if (sum[row] !== sum[0]) return null;
+          if (sum[row] !== sum[0]) return []
           row++
           brick = 0;
         }
@@ -28,7 +28,7 @@
 
       return wall;
     } catch {
-      return null;
+      return []
     }
   }
 
@@ -41,6 +41,8 @@
   }
 
   function draw(wall, cut) {
+    if (!wall.length) return;
+
     var maxWidth = 0;
 
     for (var brick = 0; brick < wall[0].length; brick++) {
@@ -67,8 +69,7 @@
       }
     }
 
-    var $cut = $('<div class="wall-cut"></div>')
-      .css('left', (cut.position * 100 / maxWidth) + '%');
+    var $cut = $('<div class="wall-cut"></div>').css('left', (cut.position * 100 / maxWidth) + '%');
 
     $container.append($cut);
 
@@ -81,18 +82,15 @@
 
   $editor.on('input', function () {
     var wall = parse($editor.val());
+    var cut = algorithm.cut(wall);
 
-    if (wall !== null) {
-      var cut = algorithm.cut(wall);
+    print(cut);
+    draw(wall, cut);
 
-      print(cut);
-      draw(wall, cut);
-    }
-
-    $editor.toggleClass('is-invalid', wall === null);
-    $wall.toggleClass('disabled', wall === null);
+    $editor.toggleClass('is-invalid', !wall.length);
+    $wall.toggleClass('disabled', !wall.length);
   })
 
   $editor.trigger('input');
 
-})(window.algorithm.v3);
+})(window.algorithm);

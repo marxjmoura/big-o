@@ -7,7 +7,7 @@ module.exports = function (config) {
       'algorithm/*.js'
     ],
     preprocessors: {
-      'algorithm/v*.js': ['coverage']
+      'algorithm/source.js': ['coverage']
     },
     reporters: ['progress', 'coverage'],
     coverageReporter: {

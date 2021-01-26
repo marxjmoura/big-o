@@ -90,33 +90,43 @@
       <pre><code class="hljs javascript">(function (algorithm) {
 
   function cut(wall) {
-    var spaceCount &#x3D; [];
-    var cutPosition &#x3D; null;
+    var spaceCount &#x3D; {};
+    var cutPosition &#x3D; 0;
 
-    for (var row &#x3D; 0, brick &#x3D; 0, position &#x3D; 0; row &lt; wall.length;) {
+    for (var row &#x3D; 0, brick &#x3D; 0, position &#x3D; 0; row &lt; wall.length &amp;&amp; brick &lt; wall[row].length;) {
       position +&#x3D; wall[row][brick];
-      spaceCount[position] &#x3D; (spaceCount[position] || 0) + 1;
+      spaceCount[position] &#x3D; spaceCount[position] || 0
 
-      if (cutPosition &#x3D;&#x3D;&#x3D; null || spaceCount[position] &gt; spaceCount[cutPosition]) {
+      if (wall[row].length &gt; 1) {
+        spaceCount[position]++;
+      }
+
+      if (cutPosition &#x3D;&#x3D;&#x3D; 0 || spaceCount[position] &gt; spaceCount[cutPosition]) {
         cutPosition &#x3D; position;
       }
 
-      if (++brick &#x3D;&#x3D;&#x3D; wall[row].length - 1) {
+      if (++brick &gt;&#x3D; wall[row].length - 1) {
         row++;
         brick &#x3D; 0;
         position &#x3D; 0;
       }
     }
 
-    return {
-      count: wall.length - spaceCount[cutPosition],
-      position: cutPosition
+    if (cutPosition &#x3D;&#x3D;&#x3D; 0) {
+      return { count: 0, position: 0 };
     }
+
+    if (spaceCount[cutPosition] &#x3D;&#x3D;&#x3D; 0) {
+      cutPosition /&#x3D; 2;
+    }
+
+    return {
+      count: wall.length - (spaceCount[cutPosition] || 0),
+      position: cutPosition
+    };
   }
 
-  algorithm.v3 &#x3D; {
-    cut: cut
-  };
+  algorithm.cut &#x3D; cut;
 
 })((window.algorithm &#x3D; window.algorithm || {}));
 </code></pre>
@@ -130,7 +140,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-    <script src="algorithm/v3.js"></script>
+    <script src="algorithm/source.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
