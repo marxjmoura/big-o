@@ -3,7 +3,7 @@
   var $editor = $('#editor');
   var $wall = $('#wall');
   var $result = $('#result');
-  var $code = $('pre code');
+  var $code = $('code');
 
   function parse(matrix) {
     try {
@@ -12,19 +12,18 @@
 
       if (!$.isArray(wall)) return null;
 
-      for (var row = 0; row < wall.length; row++) {
+      for (var row = 0, brick = 0; row < wall.length;) {
         if (!$.isArray(wall[row])) return null;
+        if (!$.isNumeric(wall[row][brick])) return null;
 
-        sum[row] = 0;
+        wall[row][brick] = Number(wall[row][brick]);
+        sum[row] = (sum[row] || 0) + wall[row][brick];
 
-        for (var brick = 0; brick < wall[row].length; brick++) {
-          if (!$.isNumeric(wall[row][brick])) return null;
-
-          wall[row][brick] = Number(wall[row][brick]);
-          sum[row] += wall[row][brick];
+        if (++brick === wall[row].length) {
+          if (sum[row] !== sum[0]) return null;
+          row++
+          brick = 0;
         }
-
-        if (row > 0 && sum[row] !== sum[row - 1]) return null;
       }
 
       return wall;
@@ -42,31 +41,30 @@
   }
 
   function draw(wall, cut) {
-    var $container = $('<div/>');
-
     var maxWidth = 0;
 
     for (var brick = 0; brick < wall[0].length; brick++) {
       maxWidth += wall[0][brick];
     }
 
-    for (var row = 0; row < wall.length; row++) {
-      var $row = $('<div class="wall-row"></div>');
+    var $container = $('<div/>');
 
-      for (var brick = 0; brick < wall[row].length; brick++) {
-        var width = wall[row][brick];
+    for (var row = 0, brick = 0; row < wall.length;) {
+      var width = wall[row][brick];
 
-        var $cell = $('<div class="wall-cell"></div>')
-          .css('width', (width * 100 / maxWidth) + '%')
+      var $row = $row || $('<div class="wall-row"></div>');
+      var $cell = $('<div class="wall-cell"></div>').css('width', (width * 100 / maxWidth) + '%')
+      var $brick = $('<div class="wall-brick"></div>').html(width);
 
-        var $brick = $('<div class="wall-brick"></div>')
-          .html(width);
-
-        $cell.append($brick);
-        $row.append($cell);
-      }
-
+      $cell.append($brick);
+      $row.append($cell);
       $container.append($row);
+
+      if (++brick === wall[row].length) {
+        row++
+        brick = 0;
+        $row = null;
+      }
     }
 
     var $cut = $('<div class="wall-cut"></div>')
